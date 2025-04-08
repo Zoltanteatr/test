@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>3D Spiral Cards</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+    .label {
+      background: white;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-family: sans-serif;
+      font-size: 14px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/examples/js/renderers/CSS3DRenderer.js"></script>
+
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    camera.position.z = 20;
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    const cssRenderer = new THREE.CSS3DRenderer();
+    cssRenderer.setSize(window.innerWidth, window.innerHeight);
+    cssRenderer.domElement.style.position = 'absolute';
+    cssRenderer.domElement.style.top = 0;
+    document.body.appendChild(cssRenderer.domElement);
+
+    const cssScene = new THREE.Scene();
+
+    // Create spiral of cards
+    const cards = [];
+    const radius = 8;
+    const turns = 3;
+    const cardsPerTurn = 12;
+
+    for (let i = 0; i < cardsPerTurn * turns; i++) {
+      const angle = i * (Math.PI * 2 / cardsPerTurn);
+      const y = i * 0.7;
+
+      const element = document.createElement('div');
+      element.className = 'label';
+      element.innerHTML = `<a href="#" target="_blank">Card ${i + 1}</a>`;
+      const objectCSS = new THREE.CSS3DObject(element);
+      objectCSS.position.x = Math.cos(angle) * radius;
+      objectCSS.position.z = Math.sin(angle) * radius;
+      objectCSS.position.y = y;
+      objectCSS.rotation.y = -angle;
+      cssScene.add(objectCSS);
+      cards.push(objectCSS);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      // rotate whole scene
+      cssScene.rotation.y += 0.003;
+      renderer.render(scene, camera);
+      cssRenderer.render(cssScene, camera);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      cssRenderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
