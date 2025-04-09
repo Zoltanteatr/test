@@ -1,128 +1,158 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <title>3D Spiral Cards - Fixed</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-      overflow: hidden;
-      background: url('https://c0f40df9-9dd3-48d8-b617-a1a14987d44d.selstorage.ru/%D1%88%D0%BA%D0%B0%D1%84.png') center center / cover no-repeat;
-    }
-    canvas {
-      display: block;
-      position: relative;
-      z-index: 0;
-    }
-    #css-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 10;
-    }
-    .card {
-      width: 100px;
-      height: 140px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: white;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    .card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Везу Прицеп - iframe</title>
+    <style>
+        /* Стили для iframe */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        h1, h2, h3 {
+            color: #222;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .main-header {
+            text-align: center;
+            padding: 20px 0;
+            background: #007BFF;
+            color: white;
+        }
+
+        .services ul, .advantages ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        .calculator form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .calculator input, .calculator select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .reviews .review {
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: #f4f4f4;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/renderers/CSS3DRenderer.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <!-- Блок 1: Главный -->
+    <header class="main-header">
+        <div class="container">
+            <h1>Везу Прицеп</h1>
+            <p>Перевезем фургон, лодку или автодом, куда скажете!</p>
+            <button onclick="alert('Рассчитайте стоимость перевозки!')">Рассчитать стоимость</button>
+        </div>
+    </header>
 
-  <div id="css-container"></div>
+    <!-- Блок 2: Услуги -->
+    <section class="services">
+        <div class="container">
+            <h2>Наши услуги</h2>
+            <ul>
+                <li>Фудтраки</li>
+                <li>Торговые прицепы</li>
+                <li>Лодки и катера</li>
+                <li>Гидроциклы</li>
+                <li>Снегоходы</li>
+                <li>Автодома (прицепы-дачи)</li>
+            </ul>
+        </div>
+    </section>
 
-  <script>
-    const scene = new THREE.Scene();
-    const cssScene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(0, 10, 25);
+    <!-- Блок 3: Калькулятор стоимости -->
+    <section class="calculator">
+        <div class="container">
+            <h2>Калькулятор стоимости</h2>
+            <form>
+                <label for="from">Откуда:</label>
+                <input type="text" id="from" placeholder="Москва">
 
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+                <label for="to">Куда:</label>
+                <input type="text" id="to" placeholder="Тула">
 
-    const cssRenderer = new THREE.CSS3DRenderer();
-    cssRenderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('css-container').appendChild(cssRenderer.domElement);
+                <label for="cargo">Тип груза:</label>
+                <select id="cargo">
+                    <option value="foodtruck">Фудтрак</option>
+                    <option value="boat">Лодка/катер</option>
+                    <option value="trailer">Прицеп</option>
+                </select>
 
-    const controls = new THREE.OrbitControls(camera, cssRenderer.domElement);
-    controls.enablePan = false;
-    controls.enableZoom = false;
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.7;
+                <button type="submit">Рассчитать</button>
+            </form>
+        </div>
+    </section>
 
-    const loader = new THREE.GLTFLoader();
-    loader.load(
-      'https://c0f40df9-9dd3-48d8-b617-a1a14987d44d.selstorage.ru/tripo_pbr_model_83e27b47-5346-4e55-bbaa-1bba61837d12.glb',
-      function (gltf) {
-        gltf.scene.scale.set(3, 3, 3);
-        scene.add(gltf.scene);
-      },
-      undefined,
-      function (error) {
-        console.error('Ошибка загрузки модели:', error);
-      }
-    );
+    <!-- Блок 4: Преимущества -->
+    <section class="advantages">
+        <div class="container">
+            <h2>Почему выбирают нас?</h2>
+            <ul>
+                <li><strong>Гарантия сохранности:</strong> Каждый груз закрепляем надёжно.</li>
+                <li><strong>Опыт и профессионализм:</strong> Тысячи километров за плечами.</li>
+                <li><strong>Личный подход:</strong> Работаем напрямую с клиентами.</li>
+            </ul>
+        </div>
+    </section>
 
-    const cardImages = [
-      'https://c0f40df9-9dd3-48d8-b617-a1a14987d44d.selstorage.ru/%D0%94%D0%96%D0%9E%D0%A0%D0%94%D0%96%20%D0%A1%D0%96%D0%90%D0%A2.png',
-      'https://c0f40df9-9dd3-48d8-b617-a1a14987d44d.selstorage.ru/%D0%9E%D0%91%D0%9B%D0%9E%D0%96%D0%9A%D0%90%20%D0%9F%D0%A0%D0%98%D0%9C%D0%90%20%E2%80%94%20%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F.png',
-      'https://c0f40df9-9dd3-48d8-b617-a1a14987d44d.selstorage.ru/%D0%9E%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0%20%D1%81%D0%B6%D0%B0%D1%82%D0%B0.png',
-      'https://c0f40df9-9dd3-48d8-b617-a1a14987d44d.selstorage.ru/%D0%BE%D0%B1%D0%BB%D0%BE%D0%B6%D0%BA%D0%B0%2013.png',
-      'https://c0f40df9-9dd3-48d8-b617-a1a14987d44d.selstorage.ru/%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81.png',
-      'https://c0f40df9-9dd3-48d8-b617-a1a14987d44d.selstorage.ru/keykeeper.png'
-    ];
+    <!-- Блок 7: Отзывы -->
+    <section class="reviews">
+        <div class="container">
+            <h2>Отзывы клиентов</h2>
+            <div class="review">
+                <p>"Большое спасибо “Везу Прицеп” за отличную работу!"</p>
+                <p><strong>Александр, владелец фудтрака</strong></p>
+            </div>
+        </div>
+    </section>
 
-    const radius = 10;
-    const verticalStep = 2.5;
-
-    cardImages.forEach((img, i) => {
-      const element = document.createElement('div');
-      element.className = 'card';
-      element.innerHTML = `<img src='${img}' alt='card' />`;
-
-      const object = new THREE.CSS3DObject(element);
-      const angle = i * Math.PI / 3;
-      const x = Math.cos(angle) * radius;
-      const y = i * verticalStep;
-      const z = Math.sin(angle) * radius;
-
-      object.position.set(x, y, z);
-      object.rotation.y = -angle;
-
-      cssScene.add(object);
-    });
-
-    function animate() {
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
-      cssRenderer.render(cssScene, camera);
-    }
-    animate();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      cssRenderer.setSize(window.innerWidth, window.innerHeight);
-    });
-  </script>
+    <!-- Блок 9: Контакты -->
+    <footer>
+        <div class="container">
+            <h2>Контакты</h2>
+            <p>Телефон: +7 (495) 123-45-67</p>
+            <p>E-mail: info@vezupricep.ru</p>
+        </div>
+    </footer>
 </body>
 </html>
