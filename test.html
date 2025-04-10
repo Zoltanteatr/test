@@ -3,156 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Везу Прицеп - iframe</title>
-    <style>
-        /* Стили для iframe */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
-        }
-
-        .container {
-            width: 90%;
-            margin: 0 auto;
-            max-width: 600px;
-        }
-
-        h1, h2, h3 {
-            color: #222;
-        }
-
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .main-header {
-            text-align: center;
-            padding: 20px 0;
-            background: #007BFF;
-            color: white;
-        }
-
-        .services ul, .advantages ul {
-            list-style: disc;
-            padding-left: 20px;
-        }
-
-        .calculator form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .calculator input, .calculator select {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .reviews .review {
-            margin-bottom: 20px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            background: #f4f4f4;
-            margin-top: 20px;
-        }
-    </style>
+    <title>Игра Золтана</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="shortcut icon" href="images/tildafavicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@100;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Блок 1: Главный -->
-    <header class="main-header">
-        <div class="container">
-            <h1>Везу Прицеп</h1>
-            <p>Перевезем фургон, лодку или автодом, куда скажете!</p>
-            <button onclick="alert('Рассчитайте стоимость перевозки!')">Рассчитать стоимость</button>
-        </div>
-    </header>
+    <!-- Прелоадер -->
+    <div id="preloader">
+        <video id="preloader-video" autoplay muted playsinline>
+            <source src="" type="video/mp4">
+        </video>
+        <button id="skip-button">Пропустить</button>
+    </div>
 
-    <!-- Блок 2: Услуги -->
-    <section class="services">
-        <div class="container">
-            <h2>Наши услуги</h2>
-            <ul>
-                <li>Фудтраки</li>
-                <li>Торговые прицепы</li>
-                <li>Лодки и катера</li>
-                <li>Гидроциклы</li>
-                <li>Снегоходы</li>
-                <li>Автодома (прицепы-дачи)</li>
-            </ul>
+    <!-- Секция 1: Геро-блок (rec925673366) -->
+    <section class="hero">
+        <div class="hero__overlay"></div>
+        <div class="hero__content">
+            <h1 class="hero__title">Игра Золтана</h1>
+            <p class="hero__subtitle">
+                <em>Иммерсивный цифровой детектив</em><br>
+                <em>в мире театрального безумия</em>
+            </p>
+            <a href="#popup:george" class="hero__button">Стань частью мира Золтана</a>
         </div>
     </section>
 
-    <!-- Блок 3: Калькулятор стоимости -->
-    <section class="calculator">
-        <div class="container">
-            <h2>Калькулятор стоимости</h2>
-            <form>
-                <label for="from">Откуда:</label>
-                <input type="text" id="from" placeholder="Москва">
-
-                <label for="to">Куда:</label>
-                <input type="text" id="to" placeholder="Тула">
-
-                <label for="cargo">Тип груза:</label>
-                <select id="cargo">
-                    <option value="foodtruck">Фудтрак</option>
-                    <option value="boat">Лодка/катер</option>
-                    <option value="trailer">Прицеп</option>
-                </select>
-
-                <button type="submit">Рассчитать</button>
-            </form>
+    <!-- Секция 2: Инфо-блок (rec926197796) -->
+    <section class="info">
+        <div class="info__overlay"></div>
+        <div class="info__content">
+            <h2 class="info__title">Раскрой тайну</h2>
+            <p class="info__text">Погрузись в мир загадок и интриг</p>
         </div>
     </section>
 
-    <!-- Блок 4: Преимущества -->
-    <section class="advantages">
-        <div class="container">
-            <h2>Почему выбирают нас?</h2>
-            <ul>
-                <li><strong>Гарантия сохранности:</strong> Каждый груз закрепляем надёжно.</li>
-                <li><strong>Опыт и профессионализм:</strong> Тысячи километров за плечами.</li>
-                <li><strong>Личный подход:</strong> Работаем напрямую с клиентами.</li>
-            </ul>
-        </div>
-    </section>
+    <!-- Здесь можно добавить остальные секции, если они есть в полной версии -->
 
-    <!-- Блок 7: Отзывы -->
-    <section class="reviews">
-        <div class="container">
-            <h2>Отзывы клиентов</h2>
-            <div class="review">
-                <p>"Большое спасибо “Везу Прицеп” за отличную работу!"</p>
-                <p><strong>Александр, владелец фудтрака</strong></p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Блок 9: Контакты -->
-    <footer>
-        <div class="container">
-            <h2>Контакты</h2>
-            <p>Телефон: +7 (495) 123-45-67</p>
-            <p>E-mail: info@vezupricep.ru</p>
-        </div>
-    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
